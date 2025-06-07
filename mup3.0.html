@@ -975,7 +975,10 @@
       fillOpacity: 0.8
     }).addTo(map).bindPopup(p2.text);
   }
-  document.getElementById('infoBox').innerText = p2.text;
+  
+  const timeOnly = p2.text.split(" - ")[0];
+document.getElementById('infoBox').innerText = timeOnly;
+
   redIndex++;
   animationTimer = setTimeout(drawNextRedSegment, 400);
 }
