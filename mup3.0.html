@@ -966,10 +966,15 @@
 }
   
 document.getElementById('toggleBtn').addEventListener('click', () => {
-  document.getElementById('toggleBtn').style.display = 'none'; // hide the button
-  isPlaying = true;
-  drawNextRedSegment(); // start animation
-});
+    if (!isPlaying && redIndex >= latlngs.length - 1) {
+      redIndex = 0;
+      map.setView(latlngs[0], map.getZoom());
+    }
+
+    isPlaying = !isPlaying;
+    document.getElementById('toggleBtn').innerText = isPlaying ? 'Pause' : 'Start';
+    if (isPlaying) drawNextRedSegment();
+  });
 </script>
 </body>
 </html>
