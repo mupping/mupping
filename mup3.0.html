@@ -27,7 +27,8 @@
     background-color: rgba(255, 255, 255, 1);
     transform: translateX(-50%) scale(1.05);
   }
-     .emoji-icon {
+  
+  .emoji-icon {
     font-size: 40px;
     text-align: center;
     line-height: 16px;
@@ -36,49 +37,50 @@
     z-index: 9999 !important;
   }
 
-#infoBox {
-  position: absolute;
-  z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.75);
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 20px;
-  font-family: sans-serif;
-  pointer-events: none;
-  white-space: nowrap;
-  transform: translate(-50%, -130%); /* center horizontally, position above */
-}
+  #infoBox {
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 20px;
+    font-family: sans-serif;
+    pointer-events: none;
+    white-space: nowrap;
+    transform: translate(-50%, -130%); /* center horizontally, position above */
+  }
 
- #progressBar {
-  position: absolute;
-  top: 10%;
-  right: 10px;
-  height: 80vh;
-  width: 36px;
-  z-index: 1000;
-  writing-mode: bt-lr; /* Makes it vertical */
-  -webkit-appearance: slider-vertical;
-  appearance: slider-vertical;
-  background: transparent;
-}
+  #progressBar {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    height: 80vh;
+    width: 36px;
+    z-index: 1000;
+    writing-mode: bt-lr; /* Makes it vertical */
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    background: transparent;
+  }
 
-#progressBar::-webkit-slider-runnable-track {
-  background: rgba(255, 255, 255, 0.8);
-  width: 100%;
-  border-radius: 10px;
-  height: 100%;
-}
+  #progressBar::-webkit-slider-runnable-track {
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+  }
 
-#progressBar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 36px;
-  height: 36px;
-  background: #007bff;
-  border: 2px solid white;
-  border-radius: 50%;
-  cursor: pointer;
-}
+  #progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 36px;
+    height: 36px;
+    background: #007bff;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
 
   </style>
 </head>
@@ -221,10 +223,10 @@
 { lat: 52.2491994, lon: -6.343528999999999, text: "2024-06-28 - Ferryport House, Rosslare Harbour, St. Helen's, Wexford Y35", love: "⛴️" },
 
 //Spain
-{ lat: 43.3049937, lon: -3.0372333, text: "2024-06-30 - Matamoros Bidea, 48520 Valle de Trápaga-Trapagaran, Biscay", love: "⛴️" },
+{ lat: 43.3049937, lon: -3.0372333, text: "2024-06-30 - Matamoros Bidea, 48520 Valle de Trápaga-Trapagaran, Biscay", love: "🐂" },
 { lat: 43.3038343, lon: -2.0145057, text: "2024-06-30 - Loistarain Kalea 30, 20018 San Sebastián, Gipuzkoa", love: "❤️" },
-{ lat: 43.366151, lon: -1.798501, text: "2024-06-30 - Jaizkibel Panorama, Hondarribia, Gipuzkoa 20280", love: "⛰️" },
-{ lat: 43.3332568, lon: -1.7681549, text: "2024-07-01 - Gi-3453, 20305 Irun, Gipuzkoa", love: "⛰️" },
+{ lat: 43.366151, lon: -1.798501, text: "2024-06-30 - Jaizkibel Panorama, Hondarribia, Gipuzkoa 20280", love: "🐂" },
+{ lat: 43.3332568, lon: -1.7681549, text: "2024-07-01 - Gi-3453, 20305 Irun, Gipuzkoa", love: "🐂" },
 { lat: 43.3406721, lon: -1.5506981, text: "2024-07-01 - Mendi Bixta Kalea, 64310 Sare", love: "❤️" },
 
 //France
@@ -906,28 +908,33 @@
 { lat: 49.9276048, lon: 4.5170396, text: "2025-05-26 - Chemin Du Tour De Ville, 08230 Rocroi" , love: "🥐" },
 
 // Belgem
-{ lat: 50.1696239, lon: 4.3504521, text: "2025-05-26 - Rue Du Milombois 19, 6440 Froidchapelle, Hainaut" , love: "" },
+{ lat: 50.1696239, lon: 4.3504521, text: "2025-05-26 - Rue Du Milombois 19, 6440 Froidchapelle, Hainaut" , love: "🍟" },
 { lat: 50.1909368, lon: 4.3761337, text: "2025-05-27 - Route de la Plate Taille 2, 6441 Froidchapelle" , love: "❤️" },
 { lat: 50.0714722, lon: 4.6059942, text: "2025-05-28 - 5670, Viroinval, Namur" , love: "🐶" },
-{ lat: 50.05382909999999, lon: 4.4933208, text: "2025-05-28 - Night & Day, 14 rue de la Gare, Couvin, Namur 5660" , love: "" },
-{ lat: 50.3436521, lon: 4.4736616, text: "2025-05-28 - Q8, Chaussée de Philippeville 213, Gerpinnes, Hainaut 6280" , love: "" },
-{ lat: 50.5784114, lon: 4.2522643, text: "2025-05-29 - Chemin De La Rocq 21, 7181 Seneffe, Hainaut" , love: "" },
-{ lat: 50.9225631, lon: 3.945259, text: "2025-05-29 - Oudenaardsesteenweg 456, 9420 Erpe-Mere, East Flanders" , love: "" },
-{ lat: 50.9953277, lon: 3.8070825, text: "2025-05-30 - Kouterslag 1a, 9090 Melle, East Flanders" , love: "" },
+{ lat: 50.05382909999999, lon: 4.4933208, text: "2025-05-28 - Night & Day, 14 rue de la Gare, Couvin, Namur 5660" , love: "🍟" },
+{ lat: 50.3436521, lon: 4.4736616, text: "2025-05-28 - Q8, Chaussée de Philippeville 213, Gerpinnes, Hainaut 6280" , love: "🍟" },
+{ lat: 50.5784114, lon: 4.2522643, text: "2025-05-29 - Chemin De La Rocq 21, 7181 Seneffe, Hainaut" , love: "🍟" },
+{ lat: 50.9225631, lon: 3.945259, text: "2025-05-29 - Oudenaardsesteenweg 456, 9420 Erpe-Mere, East Flanders" , love: "🍟" },
+{ lat: 50.9953277, lon: 3.8070825, text: "2025-05-30 - Kouterslag 1a, 9090 Melle, East Flanders" , love: "🍟" },
 { lat: 51.0647697, lon: 3.7357512, text: "2025-05-30 - Bataviabrug, Dok-Noord, Ghent, East Flanders 9000" , love: "❤️" },
-{ lat: 51.0665001, lon: 3.6297857, text: "2025-05-31 - Gijzelstraat 16, 9031 Ghent, East Flanders" , love: "" },
-{ lat: 51.0581736, lon: 3.6933193, text: "2025-05-31 - Rooigemlaan 180b, 9000 Ghent, East Flanders" , love: "" },
+{ lat: 51.0665001, lon: 3.6297857, text: "2025-05-31 - Gijzelstraat 16, 9031 Ghent, East Flanders" , love: "🍟" },
+{ lat: 51.0581736, lon: 3.6933193, text: "2025-05-31 - Rooigemlaan 180b, 9000 Ghent, East Flanders" , love: "🍟" },
 { lat: 51.1983185, lon: 3.5717618, text: "2025-06-01 - Bus 2a, 9900 Eeklo, East Flanders" , love: "❤️" },
-{ lat: 51.2486347, lon: 3.2768212, text: "2025-06-01 - Parking Damme Zuid, Damse Vaart-Zuid, Damme, West Flanders 8340" , love: "" },
-{ lat: 51.2013, lon: 3.2062086, text: "2025-06-01 - Frederik Sanderlaan 8, 8200 Bruges, West Flanders" , love: "🍟❤️" },
-{ lat: 51.2702857, lon: 3.2136474, text: "2025-06-02 - Dudzeelse Brug 2, 8380 Bruges, West Flanders" , love: "" },
+{ lat: 51.2486347, lon: 3.2768212, text: "2025-06-01 - Parking Damme Zuid, Damse Vaart-Zuid, Damme, West Flanders 8340" , love: "🍟" },
+{ lat: 51.2013, lon: 3.2062086, text: "2025-06-01 - Frederik Sanderlaan 8, 8200 Bruges, West Flanders" , love: "❤️" },
+{ lat: 51.2702857, lon: 3.2136474, text: "2025-06-02 - Dudzeelse Brug 2, 8380 Bruges, West Flanders" , love: "🍟" },
 { lat: 51.1947641, lon: 3.2308011, text: "2025-06-02 - Beenhouwerij Renmans, Baron Ruzettelaan 86, Bruges, West Flanders 8310" , love: "🍫" },
-{ lat: 51.2702857, lon: 3.2136474, text: "2025-06-03 - Dudzeelse Brug 2, 8380 Bruges, West Flanders" , love: "" },
-{ lat: 51.3135479, lon: 3.2124426, text: "2025-06-04 - Zeekabelplein, 8380 Bruges, West Flanders" , love: "" },
-{ lat: 51.3090546, lon: 3.1168989, text: "2025-06-04 - Koninklijke Laan, Blankenberge, 8370 West Flanders" , love: "" },
-{ lat: 51.2533245, lon: 2.9814758, text: "2025-06-05 - Klemskerkestraat 1, 8450 Bredene, West Flanders" , love: "" },
-{ lat: 51.2338928, lon: 2.9291737, text: "2025-06-05 - Maritiem Plein 2, 8400 Ostend, West Flanders" , love: "" },
-{ lat: 51.0695876, lon: 2.6756997, text: "2025-06-06 - Brikkerijstraat 49, 8630 Veurne, West Flanders" , love: "❤️" }
+{ lat: 51.2702857, lon: 3.2136474, text: "2025-06-03 - Dudzeelse Brug 2, 8380 Bruges, West Flanders" , love: "🍟" },
+{ lat: 51.3135479, lon: 3.2124426, text: "2025-06-04 - Zeekabelplein, 8380 Bruges, West Flanders" , love: "🍟" },
+{ lat: 51.3090546, lon: 3.1168989, text: "2025-06-04 - Koninklijke Laan, Blankenberge, 8370 West Flanders" , love: "🍟" },
+{ lat: 51.2533245, lon: 2.9814758, text: "2025-06-05 - Klemskerkestraat 1, 8450 Bredene, West Flanders" , love: "🍟" },
+{ lat: 51.2338928, lon: 2.9291737, text: "2025-06-05 - Maritiem Plein 2, 8400 Ostend, West Flanders" , love: "🍟" },
+{ lat: 51.0695876, lon: 2.6756997, text: "2025-06-06 - Brikkerijstraat 49, 8630 Veurne, West Flanders" , love: "❤️" },
+
+// France
+{ lat: 50.9721058, lon: 2.4293994, text: "2025-06-07 - Promenade Charles Quint, 59380 Bergues", love: "🥐"  },
+{ lat: 51.03636059999999, lon: 2.3658555, text: "2025-06-07 - Parking Du Môle 1 Est, 59140 Dunkirk", love: "🥐"  },
+{ lat: 51.006117, lon: 2.284249, text: "2025-06-07 - Pont Des Grenouilles, 59760 Grande-Synthe", love: "🥐"  }
 ];
   
   // Map
@@ -941,12 +948,23 @@
 
   const markerLayers = [];
   const lineLayers = [];
-  const emojiToConvert = ["☘️", "⛰️", "🥐", "🐂", "🌞"];
+  const emojiToConvert = ["☘️", "⛰️", "🥐", "🐂", "🌞", "🍟"];
   
 
   // const latlngs = points.map(p => [p.lat, p.lon]);
   let redIndex = 0;
   let isPlaying = false;
+  let latestCoord = null;
+
+  map.on('move', () => {
+      if (latestCoord) {
+        const screenPos = map.latLngToContainerPoint(latestCoord);
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.left = `${screenPos.x}px`;
+        infoBox.style.top = `${screenPos.y}px`;
+      }
+    });
+
 
   // Show first marker immediately
     const first = points[0];
@@ -964,8 +982,8 @@
     } else {
       L.circleMarker(coord0, {
         radius: 3,
-        color: 'red',
-        fillColor: 'red',
+        color: 'green',
+        fillColor: 'green',
         fillOpacity: 0.8
       }).addTo(map).bindPopup(first.text);
     }
@@ -995,8 +1013,8 @@
         } else {
           marker = L.circleMarker([p0.lat, p0.lon], {
             radius: 3,
-            color: emojiToConvert.includes(emoji) ? 'blue' : 'red',
-            fillColor: emojiToConvert.includes(emoji) ? 'blue' : 'red',
+            color: 'green',
+            fillColor: 'green',
             fillOpacity: 0.8
           }).addTo(map);
         }
@@ -1017,6 +1035,7 @@
       if (isPlaying) drawNextRedSegment();
     });
 
+    // move marker 
     function drawNextRedSegment() {
       if (!isPlaying || redIndex >= points.length - 1) return;
 
@@ -1052,13 +1071,13 @@
       if (emojiToConvert.includes(p1.love?.trim())) {
         const oldMarker = markerLayers[markerLayers.length - 1];
         if (oldMarker) map.removeLayer(oldMarker);
-        const blueMarker = L.circleMarker(coord1, {
+        const greenMarker = L.circleMarker(coord1, {
           radius: 3,
-          color: 'blue',
-          fillColor: 'blue',
+          color: 'green',
+          fillColor: 'green',
           fillOpacity: 0.8
         }).addTo(map);
-        markerLayers[markerLayers.length - 1] = blueMarker;
+        markerLayers[markerLayers.length - 1] = greenMarker;
       }
 
       const emoji = p2.love?.trim();
@@ -1075,27 +1094,33 @@
       } else {
         marker = L.circleMarker(coord2, {
           radius: 3,
-          color: 'red',
-          fillColor: 'red',
+          color: 'green',
+          fillColor: 'green',
           fillOpacity: 0.8
         }).addTo(map);
       }
 
       marker.bindPopup(p2.text);
       markerLayers.push(marker);
-
-      const screenPos = map.latLngToContainerPoint(coord2);
-      document.getElementById('infoBox').innerText = p2.text.split(" - ")[0];
-      const infoBox = document.getElementById('infoBox');
-      infoBox.style.left = `${screenPos.x}px`;
-      infoBox.style.top = `${screenPos.y - 20}px`;
-
+      updateInfoBox(coord2, p2.text);
       document.getElementById('progressBar').value = redIndex + 1;
 
       redIndex++;
       setTimeout(drawNextRedSegment, 300);
     }
 
+    // lock the date over the marker 
+    function updateInfoBox(coord, text) {
+      latestCoord = coord;
+      const screenPos = map.latLngToContainerPoint(coord);
+      const infoBox = document.getElementById('infoBox');
+      infoBox.innerText = text.split(" - ")[0];
+      infoBox.style.left = `${screenPos.x}px`;
+      infoBox.style.top = `${screenPos.y - 10}px`;
+    }
+
+
+    // progress bar
     document.getElementById('progressBar').addEventListener('input', (e) => {
       const index = parseInt(e.target.value, 10);
       redIndex = index; // sync the animation point
@@ -1124,8 +1149,8 @@
         } else {
           marker = L.circleMarker(coord, {
             radius: 3,
-            color: i === index && emojiToConvert.includes(emoji) ? 'red' : 'blue',
-            fillColor: i === index && emojiToConvert.includes(emoji) ? 'red' : 'blue',
+            color: 'green',
+            fillColor: 'green',
             fillOpacity: 0.8
           }).addTo(map);
         }
