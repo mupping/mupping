@@ -7,23 +7,25 @@
   <link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css' />
   <script src='https://unpkg.com/leaflet/dist/leaflet.js'></script>
     <style>
-  #toggleBtn {
+ #toggleBtn {
     position: absolute;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    padding: 14px 28px;
-    font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
+
+    padding: 20px 40px;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.85);
     border: 2px solid #888;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
 
   #toggleBtn:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 1);
+    transform: translateX(-50%) scale(1.05);
   }
      .emoji-icon {
     font-size: 40px;
