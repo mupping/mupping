@@ -50,19 +50,35 @@
   transform: translate(-50%, -130%); /* center horizontally, position above */
 }
 
+ #progressBar {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      z-index: 1000;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 5px;
+      outline: none;
+    }
   </style>
 </head>
 <body>
     <button id="toggleBtn" style="position:absolute; top:10px; left: 50%; z-index:1000;">Start</button>
-<div id="infoBox"></div>
-<div id='map' style='height:100vh;'></div>
-<script>
-  const map = L.map('map').setView([53.1389085, -8.9362964], 8);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+    <div id="infoBox"></div>
 
- const points = [
+    <input type="range" id="progressBar" min="0" max="0" value="0"
+  style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+         width:60%; z-index:1000;">
+
+    <div id='map' style='height:100vh;'></div>
+
+
+<script>
+
+  // Locations 
+  const points = [
 { lat: 53.2608351, lon: -9.0721772, text: "2024-04-25 - Seapoint Promenade Galway H91", love: "🚐" },
 { lat: 53.2717594, lon: -9.0581611, text: "2024-04-26 - 8 Mill Street Galway H91", love: "☘️" },
 { lat: 53.4239226, lon: -7.940277499999999, text: "2024-04-26 - ALDI Athlone Westmeath N37", love: "☘️" },
@@ -897,11 +913,23 @@
 { lat: 51.0695876, lon: 2.6756997, text: "2025-06-06 - Brikkerijstraat 49, 8630 Veurne, West Flanders" , love: "❤️" }
 ];
   
-  const latlngs = points.map(p => [p.lat, p.lon]);
+  // Map
+  const map = L.map('map').setView([53.1389085, -8.9362964], 8);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Progress bar
+  document.getElementById('progressBar').max = points.length - 1;
+
+  const markerLayers = [];
+  const lineLayers = [];
+  const emojiToConvert = ["☘️", "⛰️", "🥐", "🐂", "🌞"];
+  
+
+  // const latlngs = points.map(p => [p.lat, p.lon]);
   let redIndex = 0;
   let isPlaying = false;
-  let animationTimer = null;
-  
 
   // Show first marker immediately
     const first = points[0];
@@ -925,79 +953,213 @@
       }).addTo(map).bindPopup(first.text);
     }
     
-  function drawNextRedSegment() {
-  if (!isPlaying || redIndex >= points.length - 1) return;
 
-  const p1 = points[redIndex];
-  const p2 = points[redIndex + 1];
+    // Start and Pause 
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+      if (!isPlaying && redIndex >= points.length - 1) {
+        redIndex = 0;
+        markerLayers.forEach(m => map.removeLayer(m));
+        lineLayers.forEach(l => map.removeLayer(l));
+        markerLayers.length = 0;
+        lineLayers.length = 0;
 
-  const coord1 = [p1.lat, p1.lon];
-  const coord2 = [p2.lat, p2.lon];
+        const p0 = points[0];
+        const emoji = p0.love?.trim();
+        let marker;
 
-  // Draw line
-  L.polyline([coord1, coord2], { color: 'red', weight: 2 }).addTo(map);
+        if (emoji && !emojiToConvert.includes(emoji)) {
+          const icon = L.divIcon({
+            className: 'emoji-icon',
+            html: emoji,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+          });
+          marker = L.marker([p0.lat, p0.lon], { icon, zIndexOffset: 1000 }).addTo(map);
+        } else {
+          marker = L.circleMarker([p0.lat, p0.lon], {
+            radius: 3,
+            color: emojiToConvert.includes(emoji) ? 'blue' : 'red',
+            fillColor: emojiToConvert.includes(emoji) ? 'blue' : 'red',
+            fillOpacity: 0.8
+          }).addTo(map);
+        }
 
-  // center the marker 
-  const markerLatLng = L.latLng(coord2);
-  const markerPoint = map.latLngToContainerPoint(markerLatLng);
-  const mapSize = map.getSize(); // { x: width, y: height }
-  const margin = 200;
+        marker.bindPopup(p0.text);
+        markerLayers.push(marker);
 
-  const isNearEdge =
-    markerPoint.x < margin ||
-    markerPoint.y < margin ||
-    markerPoint.x > mapSize.x - margin ||
-    markerPoint.y > mapSize.y - margin;
+        document.getElementById('progressBar').value = 0;
+        const screenPos = map.latLngToContainerPoint([p0.lat, p0.lon]);
+        document.getElementById('infoBox').innerText = p0.text.split(" - ")[0];
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.left = `${screenPos.x}px`;
+        infoBox.style.top = `${screenPos.y - 20}px`;
+      }
 
-  if (isNearEdge) {
-    map.panTo(markerLatLng, {
-      animate: true,
-      duration: 1.0,
-      easeLinearity: 0.25
+      isPlaying = !isPlaying;
+      document.getElementById('toggleBtn').innerText = isPlaying ? 'Pause' : 'Start';
+      if (isPlaying) drawNextRedSegment();
     });
-  }
-    
-  // Add marker for point 2 (point 1 is only shown at redIndex=0 below)
-  const emoji = p2.love?.trim();
-  if (emoji) {
-    const icon = L.divIcon({
-      className: 'emoji-icon',
-      html: emoji,
-      iconSize: [16, 16],
-      iconAnchor: [8, 8]
-    });
-    L.marker(coord2, { icon }).addTo(map).bindPopup(p2.text);
-  } else {
-    L.circleMarker(coord2, {
-      radius: 2,
-      color: 'blue',
-      fillColor: 'blue',
-      fillOpacity: 0.8
-    }).addTo(map).bindPopup(p2.text);
-  }
-  
-  const timeOnly = p2.text.split(" - ")[0];
-document.getElementById('infoBox').innerText = timeOnly;
-const screenPos = map.latLngToContainerPoint(coord2);
 
-const infoBox = document.getElementById('infoBox');
-infoBox.style.left = `${screenPos.x}px`;
-infoBox.style.top = `${screenPos.y - 20}px`;
+    function drawNextRedSegment() {
+      if (!isPlaying || redIndex >= points.length - 1) return;
 
-  redIndex++;
-  animationTimer = setTimeout(drawNextRedSegment, 400);
-}
-  
-document.getElementById('toggleBtn').addEventListener('click', () => {
-    if (!isPlaying && redIndex >= latlngs.length - 1) {
-      redIndex = 0;
-      map.setView(latlngs[0], map.getZoom());
+      const p1 = points[redIndex];
+      const p2 = points[redIndex + 1];
+      const coord1 = [p1.lat, p1.lon];
+      const coord2 = [p2.lat, p2.lon];
+
+      const line = L.polyline([coord1, coord2], { color: 'red', weight: 2 }).addTo(map);
+
+       // center the marker 
+      const markerLatLng = L.latLng(coord2);
+      const markerPoint = map.latLngToContainerPoint(markerLatLng);
+      const mapSize = map.getSize(); // { x: width, y: height }
+      const margin = 200;
+
+      const isNearEdge =
+        markerPoint.x < margin ||
+        markerPoint.y < margin ||
+        markerPoint.x > mapSize.x - margin ||
+        markerPoint.y > mapSize.y - margin;
+
+      if (isNearEdge) {
+        map.panTo(markerLatLng, {
+          animate: true,
+          duration: 1.0,
+          easeLinearity: 0.25
+        });
+      }
+
+      lineLayers.push(line);
+
+      if (emojiToConvert.includes(p1.love?.trim())) {
+        const oldMarker = markerLayers[markerLayers.length - 1];
+        if (oldMarker) map.removeLayer(oldMarker);
+        const blueMarker = L.circleMarker(coord1, {
+          radius: 3,
+          color: 'blue',
+          fillColor: 'blue',
+          fillOpacity: 0.8
+        }).addTo(map);
+        markerLayers[markerLayers.length - 1] = blueMarker;
+      }
+
+      const emoji = p2.love?.trim();
+      let marker;
+
+      if (emoji) {
+        const icon = L.divIcon({
+          className: 'emoji-icon',
+          html: emoji,
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
+        marker = L.marker(coord2, { icon, zIndexOffset: 1000 }).addTo(map);
+      } else {
+        marker = L.circleMarker(coord2, {
+          radius: 3,
+          color: 'red',
+          fillColor: 'red',
+          fillOpacity: 0.8
+        }).addTo(map);
+      }
+
+      marker.bindPopup(p2.text);
+      markerLayers.push(marker);
+
+      const screenPos = map.latLngToContainerPoint(coord2);
+      document.getElementById('infoBox').innerText = p2.text.split(" - ")[0];
+      const infoBox = document.getElementById('infoBox');
+      infoBox.style.left = `${screenPos.x}px`;
+      infoBox.style.top = `${screenPos.y - 20}px`;
+
+      document.getElementById('progressBar').value = redIndex + 1;
+
+      redIndex++;
+      setTimeout(drawNextRedSegment, 300);
     }
 
-    isPlaying = !isPlaying;
-    document.getElementById('toggleBtn').innerText = isPlaying ? 'Pause' : 'Start';
-    if (isPlaying) drawNextRedSegment();
-  });
+    document.getElementById('progressBar').addEventListener('input', (e) => {
+      const index = parseInt(e.target.value, 10);
+      redIndex = index; // sync the animation point
+      isPlaying = false; // pause animation
+      document.getElementById('toggleBtn').innerText = 'Start';
+
+      markerLayers.forEach(m => map.removeLayer(m));
+      lineLayers.forEach(l => map.removeLayer(l));
+      markerLayers.length = 0;
+      lineLayers.length = 0;
+
+      for (let i = 0; i <= index; i++) {
+        const p = points[i];
+        const coord = [p.lat, p.lon];
+        const emoji = p.love?.trim();
+        let marker;
+
+        if (emoji && (!emojiToConvert.includes(emoji) || i === index)) {
+          const icon = L.divIcon({
+            className: 'emoji-icon',
+            html: emoji,
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+          });
+          marker = L.marker(coord, { icon, zIndexOffset: 1000 }).addTo(map);
+        } else {
+          marker = L.circleMarker(coord, {
+            radius: 3,
+            color: i === index && emojiToConvert.includes(emoji) ? 'red' : 'blue',
+            fillColor: i === index && emojiToConvert.includes(emoji) ? 'red' : 'blue',
+            fillOpacity: 0.8
+          }).addTo(map);
+        }
+
+        marker.bindPopup(p.text);
+        markerLayers.push(marker);
+
+        if (i > 0) {
+          const prev = [points[i - 1].lat, points[i - 1].lon];
+          const line = L.polyline([prev, coord], { color: 'red', weight: 2 }).addTo(map);
+          lineLayers.push(line);
+        }
+      }
+
+      if (points[index]) {
+        const coord = [points[index].lat, points[index].lon];
+        const screenPos = map.latLngToContainerPoint(coord);
+        document.getElementById('infoBox').innerText = points[index].text.split(" - ")[0];
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.left = `${screenPos.x}px`;
+        infoBox.style.top = `${screenPos.y - 20}px`;
+
+        // Smooth pan to center if near edge
+        const markerLatLng = L.latLng(coord);
+        const markerPoint = map.latLngToContainerPoint(markerLatLng);
+        const mapSize = map.getSize();
+        const margin = 200;
+
+        const isNearEdge =
+          markerPoint.x < margin ||
+          markerPoint.y < margin ||
+          markerPoint.x > mapSize.x - margin ||
+          markerPoint.y > mapSize.y - margin;
+
+        if (isNearEdge) {
+          map.panTo(markerLatLng, {
+            animate: true,
+            duration: 1.0,
+            easeLinearity: 0.25
+          });
+        }
+      }
+        const coord = [points[index].lat, points[index].lon];
+        const screenPos = map.latLngToContainerPoint(coord);
+        document.getElementById('infoBox').innerText = points[index].text.split(" - ")[0];
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.left = `${screenPos.x}px`;
+        infoBox.style.top = `${screenPos.y - 20}px`;
+      
+    });
+
 </script>
 </body>
 </html>
