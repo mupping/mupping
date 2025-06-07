@@ -41,7 +41,7 @@
 
 <div id='map' style='height:100vh;'></div>
 <script>
-  const map = L.map('map').setView([53.1389085, -8.9362964], 7);
+  const map = L.map('map').setView([53.1389085, -8.9362964], 8);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
@@ -919,7 +919,7 @@
   const coord2 = [p2.lat, p2.lon];
 
   // Draw line
-  L.polyline([coord1, coord2], { color: 'red', weight: 1 }).addTo(map);
+  L.polyline([coord1, coord2], { color: 'red', weight: 2 }).addTo(map);
 
   // center the marker 
   const markerLatLng = L.latLng(coord2);
