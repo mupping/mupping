@@ -35,11 +35,26 @@
     width: 56px !important;
     z-index: 9999 !important;
   }
+  #infoBox {
+  position: absolute;
+  left: 75%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-family: sans-serif;
+  pointer-events: none;
+  white-space: nowrap;
+}
   </style>
 </head>
 <body>
     <button id="toggleBtn" style="position:absolute; top:10px; left: 50%; z-index:1000;">Start</button>
-
+<div id="infoBox"></div>
 <div id='map' style='height:100vh;'></div>
 <script>
   const map = L.map('map').setView([53.1389085, -8.9362964], 8);
@@ -960,7 +975,7 @@
       fillOpacity: 0.8
     }).addTo(map).bindPopup(p2.text);
   }
-
+  document.getElementById('infoBox').innerText = p2.text;
   redIndex++;
   animationTimer = setTimeout(drawNextRedSegment, 400);
 }
