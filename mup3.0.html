@@ -26,7 +26,7 @@
     background-color: rgba(255, 255, 255, 0.9);
   }
      .emoji-icon {
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
     line-height: 16px;
     margin-left: -28px !important;
@@ -919,6 +919,26 @@
   // Draw line
   L.polyline([coord1, coord2], { color: 'red', weight: 1 }).addTo(map);
 
+  // center the marker 
+  const markerLatLng = L.latLng(coord2);
+  const markerPoint = map.latLngToContainerPoint(markerLatLng);
+  const mapSize = map.getSize(); // { x: width, y: height }
+  const margin = 200;
+
+  const isNearEdge =
+    markerPoint.x < margin ||
+    markerPoint.y < margin ||
+    markerPoint.x > mapSize.x - margin ||
+    markerPoint.y > mapSize.y - margin;
+
+  if (isNearEdge) {
+    map.panTo(markerLatLng, {
+      animate: true,
+      duration: 1.0,
+      easeLinearity: 0.25
+    });
+  }
+    
   // Add marker for point 2 (point 1 is only shown at redIndex=0 below)
   const emoji = p2.love?.trim();
   if (emoji) {
