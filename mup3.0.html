@@ -33,6 +33,7 @@
     line-height: 16px;
     margin-left: -28px !important;
     width: 56px !important;
+    z-index: 9999 !important;
   }
   </style>
 </head>
@@ -899,7 +900,7 @@
         iconSize: [16, 16],
         iconAnchor: [8, 8]
       });
-      L.marker(coord0, { icon }).addTo(map).bindPopup(first.text);
+      L.marker(coord0, { icon, zIndexOffset: 1000 }).addTo(map).bindPopup(first.text);
     } else {
       L.circleMarker(coord0, {
         radius: 3,
