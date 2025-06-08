@@ -86,6 +86,9 @@
 </head>
 <body>
     <button id="toggleBtn" style="position:absolute; top:10px; left: 50%; z-index:1000;">Start</button>
+    <button id="muteBtn" style="position:absolute; top:60px; left:50%; transform:translateX(-50%); z-index:1000;">
+      🔊 Mute
+    </button>
     <div id="infoBox"></div>
 
     <input type="range" id="progressBar" min="0" max="0" value="0" orient="vertical">
@@ -93,7 +96,7 @@
 
     <div id='map' style='height:100vh;'></div>
 
-
+    <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
 <script>
 
   // Locations 
@@ -991,6 +994,10 @@
 
     // Start and Pause 
     document.getElementById('toggleBtn').addEventListener('click', () => {
+      // music 
+      const music = document.getElementById('bgMusic');
+      if (music.paused) music.play().catch(e => console.log("Autoplay blocked", e));
+      
       if (!isPlaying && redIndex >= points.length - 1) {
         redIndex = 0;
         markerLayers.forEach(m => map.removeLayer(m));
@@ -1202,6 +1209,13 @@
       
     });
 
+    // mute music 
+    document.getElementById('muteBtn').addEventListener('click', () => {
+      const music = document.getElementById('bgMusic');
+      music.muted = !music.muted;
+      document.getElementById('muteBtn').innerText = music.muted ? '🔇 Unmute' : '🔊 Mute';
+    });
+    
 </script>
 </body>
 </html>
