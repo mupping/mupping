@@ -6,6 +6,7 @@
   <title>Route Map</title>
   <link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css' />
   <script src='https://unpkg.com/leaflet/dist/leaflet.js'></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <style>
  #toggleBtn {
     position: absolute;
@@ -86,9 +87,6 @@
 </head>
 <body>
     <button id="toggleBtn" style="position:absolute; top:10px; left: 50%; z-index:1000;">Start</button>
-    <button id="muteBtn" style="position:absolute; top:60px; left:50%; transform:translateX(-50%); z-index:1000;">
-      🔊 Mute
-    </button>
     <div id="infoBox"></div>
 
     <input type="range" id="progressBar" min="0" max="0" value="0" orient="vertical">
@@ -96,7 +94,15 @@
 
     <div id='map' style='height:100vh;'></div>
 
-    <audio id="bgMusic" src="https://soundcloud.com/martin-f-martorell/fleetwood-mac-dreams-1977-extended-version" preload="auto" loop></audio>
+<iframe
+  id="ytPlayer"
+  width="0"
+  height="0"
+  src="https://www.youtube.com/embed/mrZRURcb1cM?enablejsapi=1&loop=1&playlist=mrZRURcb1cM"
+  frameborder="0"
+  allow="autoplay"
+  style="display: none;"
+></iframe>
 <script>
 
   // Locations 
@@ -995,9 +1001,8 @@
     // Start and Pause 
     document.getElementById('toggleBtn').addEventListener('click', () => {
       // music 
-      const music = document.getElementById('bgMusic');
-      if (music.paused) music.play().catch(e => console.log("Autoplay blocked", e));
       
+
       if (!isPlaying && redIndex >= points.length - 1) {
         redIndex = 0;
         markerLayers.forEach(m => map.removeLayer(m));
@@ -1039,7 +1044,11 @@
 
       isPlaying = !isPlaying;
       document.getElementById('toggleBtn').innerText = isPlaying ? 'Pause' : 'Start';
-      if (isPlaying) drawNextRedSegment();
+      if (isPlaying) 
+      {
+        drawNextRedSegment();
+        playMusic(); 
+      }
     });
 
     // move marker 
@@ -1209,12 +1218,16 @@
       
     });
 
-    // mute music 
-    document.getElementById('muteBtn').addEventListener('click', () => {
-      const music = document.getElementById('bgMusic');
-      music.muted = !music.muted;
-      document.getElementById('muteBtn').innerText = music.muted ? '🔇 Unmute' : '🔊 Mute';
-    });
+    let ytPlayer;
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('ytPlayer');
+    }
+
+    function playMusic() {
+      if (ytPlayer && ytPlayer.playVideo) {
+        ytPlayer.playVideo();
+      }
+    }
     
 </script>
 </body>
